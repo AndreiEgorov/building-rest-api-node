@@ -11,7 +11,17 @@ app.use(morgan('dev')) //logger middleware
 app.use(bodyParser.urlencoded({extended:false})) //urlencoded. extended: true allows to parse extended bodies with rich data.
 app.use(bodyParser.json()) //will extract json data and use it in routes
 
+//prevent CORS errors
+app.use((req, res, next)=>{ //adding headers to response, !not sending response, but adjusting its headers
+    res.header("Access-Control-Allow-Origin" ,"*"); //CORS error often complains that "no Access-Control... is present", so I added it here. The * is a value to give access to any orignin, not just certain url
+    res.header("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); //define what headers we want to accept
+    if(res.method === "OPTIONS"){ //checking if method equals to OPTIONS, browser checks if you can make this request
+        res.header("Acces-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET")
+        return res.status(200).json({})
 
+    }
+    next(); //next so that other routes could take over
+})
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes)
