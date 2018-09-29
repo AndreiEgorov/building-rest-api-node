@@ -11,6 +11,8 @@ app.use(morgan('dev')) //logger middleware
 app.use(bodyParser.urlencoded({extended:false})) //urlencoded. extended: true allows to parse extended bodies with rich data.
 app.use(bodyParser.json()) //will extract json data and use it in routes
 
+
+
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes)
 
