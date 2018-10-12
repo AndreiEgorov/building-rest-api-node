@@ -73,14 +73,14 @@ router.patch('/:productId', (req, res, next) => {
     updateOps[ops.propName] = ops.value;
   }
 
-    // example of the patch request
+  // example of the patch request
 
-    // [
-    //   {
-    //     propName: 'name',
-    //     value: 'Captain America Shield',
-    //   },
-    // ];
+  // [
+  //   {
+  //     propName: 'name',
+  //     value: 'Captain America Shield',
+  //   },
+  // ];
 
   Product.update({ _id: id }, { $set: updateOps }) // first arg is to select what item to update(by id), second what fields. it could be {name: req.body.newName, price: req.body.newPrice}
     //but we need to be able to update only one field if we wanted to => use updateOps from the loop
